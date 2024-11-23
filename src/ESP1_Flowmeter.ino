@@ -3,6 +3,7 @@
 #include <Ticker.h>
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
+#include "credentials.h"
 
 Ticker interrupcaoSegundo;
 
@@ -12,19 +13,9 @@ Ticker interrupcaoSegundo;
 //LED
 #define pinoLed 1       // Building LED (1 or 2 depends on ESP-1)
 
-// WiFi AP Credentials
-const char* ssid = "CezarNet";
-const char* password = "nze-4206-1549";
-
-// WiFi Client Static IP
-IPAddress ip(192, 168, 0, 16);    
-IPAddress gateway(192,168,0,1); 
-IPAddress subnet(255,255,255,0);
-
 // Server IP and Port numbers
 WiFiUDP Udp;
 IPAddress serverIP1(192, 168, 0, 2); 
-IPAddress serverIP2(192, 168, 0, 4); 
 unsigned int porta = 5678;  
 
 // Global variables
@@ -58,8 +49,7 @@ void setup()
   Serial.println(ssid);
   
   WiFi.mode(WIFI_STA);
-  WiFi.config(ip, gateway, subnet);
-  WiFi.begin(ssid, password);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
   
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
